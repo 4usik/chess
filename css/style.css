@@ -1,0 +1,69 @@
+* {
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 0;
+}
+
+h2 {
+    margin: 0 auto;
+    padding: 15px 0;
+    text-align: center;
+}
+
+.container {
+    box-sizing: border-box;
+    margin: 0 auto;
+
+    display: flex;
+    width: 650px;
+    height: 650px;
+    justify-content: center;
+
+}
+
+.board {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    margin: 0;
+}
+
+.square {
+    width: 65px;
+    height: 65px;
+    background-color: brown;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.black {
+    background-color: #184951;
+}
+
+.white {
+    background-color: #dffdff;
+}
+
+.brown {
+    background-color: #287588;
+}
+
+.turn {
+    transform: rotate(180deg);
+}
+
+.blackChessmen {
+    color: black;
+}
+
+.whiteChessmen {
+    color: white;
+}
+
+.chessmen {
+
+    height: 80%;
+}
