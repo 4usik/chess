@@ -89,6 +89,12 @@ function innerChessmen(square) {
     });
 };
 
+function clearHlt(hlt, num) {
+    for (let i = 0; i < num; i++) {
+        hlt.pop();
+    };
+}
+
 function moveChessmen() {
 
     const board = document.querySelector('.board');
@@ -103,32 +109,31 @@ function moveChessmen() {
 
             const took = e.currentTarget;
 
-            took.classList.toggle('highlighting');
-            hlt.push(took);
+            if (took.classList.item(1) !== 'brown') {
 
-            if ((hlt.length == 2) && hlt[0].firstChild) {
-                const a = hlt[0].firstChild;
-                
-                hlt[1].innerHTML = `<img data-piece="${a.getAttribute('data-piece')}" data-color=${a.getAttribute('data-color')} class="chessmen" src='./img/chess-${a.getAttribute('data-piece')}-${a.getAttribute('data-color')}.png'>`;
-                hlt[0].innerHTML = '';
+                took.classList.toggle('highlighting');
+                hlt.push(took);
 
-                hlt.forEach(item => {
-                    item.classList.remove('highlighting');
-                });
+                if ((hlt.length == 2) && hlt[0].firstChild && hlt[0].firstChild.getAttribute('data-color') !== hlt[1].firstChild.getAttribute('data-color')) {
+                    const a = hlt[0].firstChild;
+                    
+                    hlt[1].innerHTML = `<img data-piece="${a.getAttribute('data-piece')}" data-color=${a.getAttribute('data-color')} class="chessmen" src='./img/chess-${a.getAttribute('data-piece')}-${a.getAttribute('data-color')}.png'>`;
+                    hlt[0].innerHTML = '';
 
-                for (let i = 0; i < 2; i++) {
-                    hlt.pop();
+                    hlt.forEach(item => {
+                        item.classList.remove('highlighting');
+                    });
+
+                    clearHlt(hlt, 2);
+
+                } else if ((hlt.length == 3)) {
+                    hlt.forEach(item => {
+                        item.classList.remove('highlighting');
+                    });
+
+                    clearHlt(hlt, 3);
+
                 };
-
-            } else if (hlt.length == 3) {
-                hlt.forEach(item => {
-                    item.classList.remove('highlighting');
-                });
-
-                for (let i = 0; i < 3; i++) {
-                    hlt.pop();
-                };
-
             };
 
         });
