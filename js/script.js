@@ -38,6 +38,18 @@ function innerTxt(square) {
 
 function innerChessmen(square) {
 
+    const chessmen = {
+        'castle': './img/chess-castle',
+        'knight': './img/chess-knight',
+        'bishop': './img/chess-bishop',
+        'king': './img/chess-king',
+        'queen': './img/chess-queen',
+        'piece': './img/chess-piece'
+    };
+
+    const arr = Object.entries(chessmen);
+    console.log(arr);
+
     const chessmenArr = [
         './img/chess-castle',
         './img/chess-knight',
@@ -64,15 +76,15 @@ function innerChessmen(square) {
 
     square.forEach((item, i) => {
         if ((i%10 !== 0) && ((i+1)%10 !== 0) && (Math.trunc(i/10) === 7)) {
-            item.innerHTML = `<img data-piece="${chessmenData[chessmenArr.length-1]}" class="chessmen" src='${chessmenArr[chessmenArr.length-1]}-white.png'>`;
+            item.innerHTML = `<img data-piece="${chessmenData[chessmenArr.length-1]}" data-color="white" class="chessmen" src='${chessmenArr[chessmenArr.length-1]}-white.png'>`;
         } else if ((i%10 !== 0) && ((i+1)%10 !== 0) && (Math.trunc(i/10) === 2)) {
-            item.innerHTML = `<img data-piece="${chessmenData[chessmenArr.length-1]}" class="chessmen" src='${chessmenArr[chessmenArr.length-1]}-black.png'>`;
+            item.innerHTML = `<img data-piece="${chessmenData[chessmenArr.length-1]}" data-color="black" class="chessmen" src='${chessmenArr[chessmenArr.length-1]}-black.png'>`;
         } else if ((i%10 !== 0) && ((i+1)%10 !== 0) && (Math.trunc(i/10) === 8)) {
             const j = (i-1)%10;
-            item.innerHTML = `<img data-piece="${chessmenData[j]}" class="chessmen" src='${chessmenArr[j]}-white.png'>`;
+            item.innerHTML = `<img data-piece="${chessmenData[j]}" data-color="white" class="chessmen" src='${chessmenArr[j]}-white.png'>`;
         } else if ((i%10 !== 0) && ((i+1)%10 !== 0) && (Math.trunc(i/10) === 1)) {
             const j = (i-1)%10;
-            item.innerHTML = `<img data-piece="${chessmenData[j]}" class="chessmen" src='${chessmenArr[j]}-black.png'>`;
+            item.innerHTML = `<img data-piece="${chessmenData[j]}" data-color="black" class="chessmen" src='${chessmenArr[j]}-black.png'>`;
         }
     });
 };
@@ -82,8 +94,7 @@ function moveChessmen() {
     const board = document.querySelector('.board');
     const square = board.querySelectorAll('.square');
 
-    const chessmenArr = document.querySelectorAll('[data-piece]');
-    const chessHltArr = [];
+    // const chessmenArr = document.querySelectorAll('[data-piece]');
     const hlt = [];
 
     square.forEach(item => {
@@ -98,7 +109,7 @@ function moveChessmen() {
             if ((hlt.length == 2) && hlt[0].firstChild) {
                 const a = hlt[0].firstChild;
                 
-                hlt[1].innerHTML = `<img data-piece="piece" class="chessmen" src='./img/chess-piece-black.png'>`;
+                hlt[1].innerHTML = `<img data-piece="${a.getAttribute('data-piece')}" data-color=${a.getAttribute('data-color')} class="chessmen" src='./img/chess-${a.getAttribute('data-piece')}-${a.getAttribute('data-color')}.png'>`;
                 hlt[0].innerHTML = '';
 
                 hlt.forEach(item => {
