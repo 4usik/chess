@@ -113,11 +113,12 @@ function moveChessmen() {
 
                 took.classList.toggle('highlighting');
                 hlt.push(took);
+                
+                const first = hlt[0].firstChild;
 
-                if ((hlt.length == 2) && hlt[0].firstChild && hlt[0].firstChild.getAttribute('data-color') !== hlt[1].firstChild.getAttribute('data-color')) {
-                    const a = hlt[0].firstChild;
-                    
-                    hlt[1].innerHTML = `<img data-piece="${a.getAttribute('data-piece')}" data-color=${a.getAttribute('data-color')} class="chessmen" src='./img/chess-${a.getAttribute('data-piece')}-${a.getAttribute('data-color')}.png'>`;
+                if ((hlt.length == 2) && first && first.getAttribute('data-color') !== hlt[1].firstChild?.getAttribute('data-color')) {
+
+                    hlt[1].innerHTML = `<img data-piece="${first.getAttribute('data-piece')}" data-color=${first.getAttribute('data-color')} class="chessmen" src='./img/chess-${first.getAttribute('data-piece')}-${first.getAttribute('data-color')}.png'>`;
                     hlt[0].innerHTML = '';
 
                     hlt.forEach(item => {
