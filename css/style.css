@@ -40,7 +40,7 @@ h2 {
 }
 
 .black {
-    background-color: #184951;
+    background-color: #3e7785;
 }
 
 .white {
@@ -48,7 +48,7 @@ h2 {
 }
 
 .brown {
-    background-color: #287588;
+    background-color: #1d5c6c;
 }
 
 .turn {
@@ -64,6 +64,9 @@ h2 {
 }
 
 .chessmen {
-
     height: 80%;
+}
+
+.highlighting {
+    border: solid 2px red;
 }

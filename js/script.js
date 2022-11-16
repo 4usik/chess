@@ -50,19 +50,80 @@ function innerChessmen(square) {
         './img/chess-piece'
     ];
 
+    const chessmenData = [
+        'castle',
+        'knight',
+        'bishop',
+        'king',
+        'queen',
+        'bishop',
+        'knight',
+        'castle',
+        'piece',
+    ];
+
     square.forEach((item, i) => {
         if ((i%10 !== 0) && ((i+1)%10 !== 0) && (Math.trunc(i/10) === 7)) {
-            item.innerHTML = `<img class="chessmen" src='${chessmenArr[chessmenArr.length-1]}-white.png'>`;
+            item.innerHTML = `<img data-piece="${chessmenData[chessmenArr.length-1]}" class="chessmen" src='${chessmenArr[chessmenArr.length-1]}-white.png'>`;
         } else if ((i%10 !== 0) && ((i+1)%10 !== 0) && (Math.trunc(i/10) === 2)) {
-            item.innerHTML = `<img class="chessmen" src='${chessmenArr[chessmenArr.length-1]}-black.png'>`;
+            item.innerHTML = `<img data-piece="${chessmenData[chessmenArr.length-1]}" class="chessmen" src='${chessmenArr[chessmenArr.length-1]}-black.png'>`;
         } else if ((i%10 !== 0) && ((i+1)%10 !== 0) && (Math.trunc(i/10) === 8)) {
             const j = (i-1)%10;
-            item.innerHTML = `<img class="chessmen" src='${chessmenArr[j]}-white.png'>`;
+            item.innerHTML = `<img data-piece="${chessmenData[j]}" class="chessmen" src='${chessmenArr[j]}-white.png'>`;
         } else if ((i%10 !== 0) && ((i+1)%10 !== 0) && (Math.trunc(i/10) === 1)) {
             const j = (i-1)%10;
-            item.innerHTML = `<img class="chessmen" src='${chessmenArr[j]}-black.png'>`;
+            item.innerHTML = `<img data-piece="${chessmenData[j]}" class="chessmen" src='${chessmenArr[j]}-black.png'>`;
         }
     });
+};
+
+function moveChessmen() {
+
+    const board = document.querySelector('.board');
+    const square = board.querySelectorAll('.square');
+
+    const chessmenArr = document.querySelectorAll('[data-piece]');
+    const chessHltArr = [];
+    const hlt = [];
+
+    square.forEach(item => {
+
+        item.addEventListener('click', (e) => {
+
+            const took = e.currentTarget;
+
+            took.classList.toggle('highlighting');
+            hlt.push(took);
+
+            if ((hlt.length == 2) && hlt[0].firstChild) {
+                const a = hlt[0].firstChild;
+                
+                hlt[1].innerHTML = `<img data-piece="piece" class="chessmen" src='./img/chess-piece-black.png'>`;
+                hlt[0].innerHTML = '';
+
+                hlt.forEach(item => {
+                    item.classList.remove('highlighting');
+                });
+
+                for (let i = 0; i < 2; i++) {
+                    hlt.pop();
+                };
+
+            } else if (hlt.length == 3) {
+                hlt.forEach(item => {
+                    item.classList.remove('highlighting');
+                });
+
+                for (let i = 0; i < 3; i++) {
+                    hlt.pop();
+                };
+
+            };
+
+        });
+
+    });
+
 };
 
 function boardBuild() {
@@ -84,7 +145,10 @@ function boardBuild() {
             item.classList.add('black');
         }
     });
+
+    moveChessmen();
     
 };
 
 boardBuild();
+
